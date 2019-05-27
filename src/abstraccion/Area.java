@@ -6,12 +6,11 @@
 package abstraccion;
 
 
-public class Area {
-    float resultado;
-    Figura figura;
+public interface Area {
+  
     
-    public void calcular(){
+    public void calcular();
       
-    }
+    
     
 }

@@ -7,4 +7,12 @@ package abstraccion;
 
 public class Figura {
     float valorArea;
+
+    public float getValorArea() {
+        return valorArea;
+    }
+
+    public void setValorArea(float valorArea) {
+        this.valorArea = valorArea;
+    }
 }
