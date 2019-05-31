@@ -19,9 +19,13 @@ public class Cuadrado extends Figura implements Area{
 
     @Override
     public void calcular() {
-        setValorArea(lado*lado);
+        //Calculamos el area
+        float area=lado*lado;
+        setValorArea(area); 
     }
+   
 
+  
     
 
 }

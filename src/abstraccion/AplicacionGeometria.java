@@ -12,8 +12,17 @@ package abstraccion;
 public class AplicacionGeometria {
     public static void main(String[] args) {
         Cuadrado c=new Cuadrado();
-       c.setLado(7);
+       c.setLado(-7);
        c.calcular();
         System.out.println("El area es "+c.getValorArea());
+        
+        //Triangulo
+        Triangulo t=new Triangulo();
+        t.setAltura(-5);
+        t.setBase(10);
+        t.calcular();
+        System.out.println("El area del triangulo es "+t.getValorArea());
+        
+        
     }
 }
