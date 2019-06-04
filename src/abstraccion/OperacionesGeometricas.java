@@ -6,10 +6,13 @@
 package abstraccion;
 
 
-public interface Area {
+public interface OperacionesGeometricas {
   
     
-    public void calcular();
+    public void calcularArea();
+    
+    //Metodo para el perimetro
+    public void calcularPerimetro();
       
     
     

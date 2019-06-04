@@ -6,7 +6,7 @@
 package abstraccion;
 
 
-public class Triangulo extends Figura implements Area{
+public class Triangulo extends Figura implements OperacionesGeometricas{
  float base;
  float altura;
 
@@ -29,8 +29,19 @@ public class Triangulo extends Figura implements Area{
     }
 
     @Override
-    public void calcular() {
+    public void calcularArea() {
         float area=(base*altura)/2;
         setValorArea(area); 
+    }
+
+    @Override
+    public void calcularPerimetro() {
+        //Calculamos el perimetro del triangulo
+      
+        
+        double perimetro=altura+base+Math.sqrt(Math.pow(altura, 2)+Math.pow(base,2));
+        setValorPerimetro((float) perimetro); 
+        
+        
     }
 }

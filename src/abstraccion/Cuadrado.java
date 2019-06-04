@@ -6,7 +6,7 @@
 package abstraccion;
 
 
-public class Cuadrado extends Figura implements Area{
+public class Cuadrado extends Figura implements OperacionesGeometricas{
     float lado;
 
     public float getLado() {
@@ -18,10 +18,17 @@ public class Cuadrado extends Figura implements Area{
     }
 
     @Override
-    public void calcular() {
+    public void calcularArea() {
         //Calculamos el area
         float area=lado*lado;
         setValorArea(area); 
+    }
+
+    @Override
+    public void calcularPerimetro() {
+        //Calculamos perimetro del cuadrado
+        float perimetro=lado*4;
+        setValorPerimetro(perimetro); 
     }
    
 

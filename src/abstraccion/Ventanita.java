@@ -83,7 +83,7 @@ public class Ventanita extends javax.swing.JFrame {
         //aqui vamos a calcular el area del cuadrado
          Cuadrado c=new Cuadrado();
        c.setLado(Float.parseFloat(   txt.getText()   ));
-       c.calcular();
+       c.calcularArea();
         resultado.setText("El area es "+c.getValorArea());
         
     }//GEN-LAST:event_jButton1ActionPerformed
