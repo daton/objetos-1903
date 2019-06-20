@@ -67,14 +67,14 @@ public class MiCuestionario extends javax.swing.JFrame {
         //Generamos un ArrayList de Botones de radio
 
         List<JRadioButton> radios = new ArrayList<>();
-        ButtonGroup grupo = new ButtonGroup();
+       
 
         //Mostramos la pregunta
         panelPregunta.add(jp);
         int i = 0;
         for (Opcion o : p.getOpciones()) {
             JRadioButton radio = new JRadioButton();
-            grupo.add(radio);
+          
             radio.setText(o.getTitulo());
             panelPregunta.add(radio);
 
