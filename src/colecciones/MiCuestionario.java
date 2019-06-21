@@ -10,78 +10,35 @@ import java.util.*;
 
 public class MiCuestionario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MiCuestionario
-     */
+JLabel etiquetaPregunta;
+int indicePregunta=0;
+List<JRadioButton> radios;
+ButtonGroup grupo;
     public MiCuestionario() {
         initComponents();
-
-        Opcion op11 = new Opcion();
-        op11.setTitulo("México");
-        op11.setCorrecta(false);
-
-        Opcion op21 = new Opcion("Moscu", false);
-
-        Opcion op31 = new Opcion();
-        op31.setTitulo("El Cairo");
-        op31.setCorrecta(true);
-
-        Opcion op41 = new Opcion();
-        op41.setTitulo("Mizcalco");
-        op41.setCorrecta(false);
-
-        //Opciones de la segunda pregunta
-        Opcion op12 = new Opcion("Atlantico", true);
-        Opcion op22 = new Opcion("Artico", false);
-        Opcion op32 = new Opcion("Pacifico", true);
-        Opcion op42 = new Opcion("Indico", false);
-        Opcion op52 = new Opcion("Antartico", false);
-
-        //Ahora generamos las opciones para la primer pregunta
-        Pregunta p1 = new Pregunta();
-        p1.setTitulo("Capital de Egipto");
-        //ESto es lo interesante
-
-        List<Opcion> opcionesp1 = new ArrayList<>();
-        opcionesp1.add(op11);
-        opcionesp1.add(op21);
-        opcionesp1.add(op31);
-        opcionesp1.add(op41);
-        p1.setOpciones(opcionesp1);
-        //p1.setOpciones(Arrays.asList(op11,op21,op31,op41)); 
-        //Para la pregunta 2
-        Pregunta p2 = new Pregunta();
-        p2.setTitulo("Oceanos que rodea  a Oaxaca");
-        p2.setOpciones(Arrays.asList(op12, op22, op32, op42, op52));
-
-        //Agregar las preguntas al cuetionario
-        Cuestionario c = new Cuestionario();
-        c.setPreguntas(Arrays.asList(p1, p2));
-        // Aqui vamos a invocar al cuestionario
-
-        System.out.println(c.getPreguntas().size());
-        
-        Pregunta p = c.getPreguntas().get(0);
-        //Genero la etiqueta de mi pregunta
-        JLabel jp = new JLabel(p.getTitulo());
-        //Generamos un ArrayList de Botones de radio
-
-        List<JRadioButton> radios = new ArrayList<>();
+        etiquetaPregunta=new JLabel();
+        //Agregamos al panel la etiqueta con un texo
+        etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo()); 
+        panelPregunta.add(etiquetaPregunta);
+        //Primero generamos el Arreglo
+        radios=new ArrayList<>();
+        grupo=new ButtonGroup();
        
-
-        //Mostramos la pregunta
-        panelPregunta.add(jp);
-        int i = 0;
-        for (Opcion o : p.getOpciones()) {
-            JRadioButton radio = new JRadioButton();
-          
-            radio.setText(o.getTitulo());
-            panelPregunta.add(radio);
-
-            radios.add(radio);
-
+        //Generamos las opciones
+        for(Opcion o:obtenerPreguntas().get(indicePregunta).getOpciones()){
+            JRadioButton r=new JRadioButton();
+            
+            r.setText(o.getTitulo());
+            radios.add(r);          
         }
+        for(JRadioButton r:radios){
+            grupo.add(r);
+            panelPregunta.add(r);
+        }
+        
+        
 
+       
     }
 
     /**
@@ -94,14 +51,19 @@ public class MiCuestionario extends javax.swing.JFrame {
     private void initComponents() {
 
         panelPregunta = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        siguientePregunta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelPregunta.setBackground(new java.awt.Color(204, 255, 204));
         panelPregunta.setLayout(new javax.swing.BoxLayout(panelPregunta, javax.swing.BoxLayout.Y_AXIS));
 
-        jButton1.setText("Siguiente >>");
+        siguientePregunta.setText("Siguiente >>");
+        siguientePregunta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                siguientePreguntaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,7 +72,7 @@ public class MiCuestionario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(siguientePregunta)
                 .addGap(0, 9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -118,12 +80,19 @@ public class MiCuestionario extends javax.swing.JFrame {
             .addComponent(panelPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(siguientePregunta)
                 .addContainerGap(263, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void siguientePreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguientePreguntaActionPerformed
+        // TODO add your handling code here:
+        indicePregunta++;
+     if(indicePregunta<obtenerPreguntas().size())etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo()); 
+        
+    }//GEN-LAST:event_siguientePreguntaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,7 +130,70 @@ public class MiCuestionario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel panelPregunta;
+    private javax.swing.JButton siguientePregunta;
     // End of variables declaration//GEN-END:variables
+
+ public List<Pregunta> obtenerPreguntas(){
+       //Primero generamos las opciones de cada pregunta
+      //Pregunta 1
+      Opcion op11=new Opcion();
+      op11.setTitulo("México"); 
+      op11.setCorrecta(false);
+      
+       Opcion op21=new Opcion("Moscu",false);
+  
+      
+       Opcion op31=new Opcion();
+      op31.setTitulo("El Cairo"); 
+      op31.setCorrecta(true);
+      
+       Opcion op41=new Opcion();
+      op41.setTitulo("Mizcalco"); 
+      op41.setCorrecta(false);
+      
+      //Opciones de la segunda pregunta
+      
+      Opcion op12=new Opcion("Atlantico", true);
+      Opcion op22=new Opcion("Artico", false);
+      Opcion op32=new Opcion("Pacifico", true);
+      Opcion op42=new Opcion("Indico",false);
+      Opcion op52=new Opcion("Antartico", false);
+      
+      //Opciones de la tercer pregunta
+        Opcion op13=new Opcion("Falso", true);
+       Opcion op23=new Opcion("Verdadero", false);
+       Pregunta p3=new Pregunta();
+       p3.setTitulo("Pasaré prog. o. a objetos?");
+       List<Opcion> op3=new ArrayList<>();
+       op3.add(op13);
+       op3.add(op23);
+       p3.setOpciones(op3); 
+       
+      
+      //Ahora generamos las opciones para la primer pregunta
+      Pregunta p1=new Pregunta();
+      p1.setTitulo("Capital de Egipto");
+      //ESto es lo interesante
+      
+      List<Opcion> opcionesp1=new ArrayList<>();
+      opcionesp1.add(op11);
+      opcionesp1.add(op21);
+      opcionesp1.add(op31);
+      opcionesp1.add(op41);
+      p1.setOpciones(opcionesp1); 
+      //p1.setOpciones(Arrays.asList(op11,op21,op31,op41)); 
+      //Para la pregunta 2
+      Pregunta  p2=new Pregunta();
+      p2.setTitulo("Oceanos que rodean a Oaxaca");
+      p2.setOpciones(Arrays.asList(op12, op22,op32,op42,op52));
+           
+      
+      //Agregar las preguntas al cuetionario
+      Cuestionario c=new Cuestionario();
+      c.setPreguntas(Arrays.asList(p1,p2,p3)); 
+      
+   return c.getPreguntas();
+ }   
+
 }
