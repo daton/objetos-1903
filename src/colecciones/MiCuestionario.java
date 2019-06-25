@@ -10,35 +10,34 @@ import java.util.*;
 
 public class MiCuestionario extends javax.swing.JFrame {
 
-JLabel etiquetaPregunta;
-int indicePregunta=0;
-List<JRadioButton> radios;
-ButtonGroup grupo;
+    JLabel etiquetaPregunta;
+    int indicePregunta = 0;
+    int acierto = 0;
+    List<JRadioButton> radios;
+    ButtonGroup grupo;
+
     public MiCuestionario() {
         initComponents();
-        etiquetaPregunta=new JLabel();
+        etiquetaPregunta = new JLabel();
         //Agregamos al panel la etiqueta con un texo
-        etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo()); 
+        etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo());
         panelPregunta.add(etiquetaPregunta);
         //Primero generamos el Arreglo
-        radios=new ArrayList<>();
-        grupo=new ButtonGroup();
-       
+        radios = new ArrayList<>();
+        grupo = new ButtonGroup();
+
         //Generamos las opciones
-        for(Opcion o:obtenerPreguntas().get(indicePregunta).getOpciones()){
-            JRadioButton r=new JRadioButton();
-            
+        for (Opcion o : obtenerPreguntas().get(indicePregunta).getOpciones()) {
+            JRadioButton r = new JRadioButton();
+
             r.setText(o.getTitulo());
-            radios.add(r);          
+            radios.add(r);
         }
-        for(JRadioButton r:radios){
+        for (JRadioButton r : radios) {
             grupo.add(r);
             panelPregunta.add(r);
         }
-        
-        
 
-       
     }
 
     /**
@@ -52,6 +51,7 @@ ButtonGroup grupo;
 
         panelPregunta = new javax.swing.JPanel();
         siguientePregunta = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +65,8 @@ ButtonGroup grupo;
             }
         });
 
+        jLabel1.setText("Resultado:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,8 +74,13 @@ ButtonGroup grupo;
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(siguientePregunta)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(siguientePregunta)
+                        .addGap(0, 175, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,7 +88,9 @@ ButtonGroup grupo;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(siguientePregunta)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(223, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,9 +98,35 @@ ButtonGroup grupo;
 
     private void siguientePreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguientePreguntaActionPerformed
         // TODO add your handling code here:
+        //Checamos antes cual de las opciones fue seleccionada e incremento
+        //aciertos en 1 , si es que coincide cn la correcta
+        verificarRespuesta();
+
         indicePregunta++;
-     if(indicePregunta<obtenerPreguntas().size())etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo()); 
-        
+        panelPregunta.removeAll();
+        panelPregunta.repaint();
+
+        if (indicePregunta < obtenerPreguntas().size()) {
+            panelPregunta.add(etiquetaPregunta);
+            etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo());
+            //Primero generamos el Arreglo
+            radios = new ArrayList<>();
+            grupo = new ButtonGroup();
+
+            //Generamos las opciones
+            for (Opcion o : obtenerPreguntas().get(indicePregunta).getOpciones()) {
+                JRadioButton r = new JRadioButton();
+
+                r.setText(o.getTitulo());
+                radios.add(r);
+            }
+            for (JRadioButton r : radios) {
+                grupo.add(r);
+
+                panelPregunta.add(r);
+            }
+
+        }
     }//GEN-LAST:event_siguientePreguntaActionPerformed
 
     /**
@@ -130,70 +165,78 @@ ButtonGroup grupo;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelPregunta;
     private javax.swing.JButton siguientePregunta;
     // End of variables declaration//GEN-END:variables
 
- public List<Pregunta> obtenerPreguntas(){
-       //Primero generamos las opciones de cada pregunta
-      //Pregunta 1
-      Opcion op11=new Opcion();
-      op11.setTitulo("México"); 
-      op11.setCorrecta(false);
-      
-       Opcion op21=new Opcion("Moscu",false);
-  
-      
-       Opcion op31=new Opcion();
-      op31.setTitulo("El Cairo"); 
-      op31.setCorrecta(true);
-      
-       Opcion op41=new Opcion();
-      op41.setTitulo("Mizcalco"); 
-      op41.setCorrecta(false);
-      
-      //Opciones de la segunda pregunta
-      
-      Opcion op12=new Opcion("Atlantico", true);
-      Opcion op22=new Opcion("Artico", false);
-      Opcion op32=new Opcion("Pacifico", true);
-      Opcion op42=new Opcion("Indico",false);
-      Opcion op52=new Opcion("Antartico", false);
-      
-      //Opciones de la tercer pregunta
-        Opcion op13=new Opcion("Falso", true);
-       Opcion op23=new Opcion("Verdadero", false);
-       Pregunta p3=new Pregunta();
-       p3.setTitulo("Pasaré prog. o. a objetos?");
-       List<Opcion> op3=new ArrayList<>();
-       op3.add(op13);
-       op3.add(op23);
-       p3.setOpciones(op3); 
-       
-      
-      //Ahora generamos las opciones para la primer pregunta
-      Pregunta p1=new Pregunta();
-      p1.setTitulo("Capital de Egipto");
-      //ESto es lo interesante
-      
-      List<Opcion> opcionesp1=new ArrayList<>();
-      opcionesp1.add(op11);
-      opcionesp1.add(op21);
-      opcionesp1.add(op31);
-      opcionesp1.add(op41);
-      p1.setOpciones(opcionesp1); 
-      //p1.setOpciones(Arrays.asList(op11,op21,op31,op41)); 
-      //Para la pregunta 2
-      Pregunta  p2=new Pregunta();
-      p2.setTitulo("Oceanos que rodean a Oaxaca");
-      p2.setOpciones(Arrays.asList(op12, op22,op32,op42,op52));
-           
-      
-      //Agregar las preguntas al cuetionario
-      Cuestionario c=new Cuestionario();
-      c.setPreguntas(Arrays.asList(p1,p2,p3)); 
-      
-   return c.getPreguntas();
- }   
+    public List<Pregunta> obtenerPreguntas() {
+        //Primero generamos las opciones de cada pregunta
+        //Pregunta 1
+        Opcion op11 = new Opcion();
+        op11.setTitulo("México");
+        op11.setCorrecta(false);
+
+        Opcion op21 = new Opcion("Moscu", false);
+
+        Opcion op31 = new Opcion();
+        op31.setTitulo("El Cairo");
+        op31.setCorrecta(true);
+
+        Opcion op41 = new Opcion();
+        op41.setTitulo("Mizcalco");
+        op41.setCorrecta(false);
+
+        //Opciones de la segunda pregunta
+        Opcion op12 = new Opcion("Atlantico", true);
+        Opcion op22 = new Opcion("Artico", false);
+        Opcion op32 = new Opcion("Pacifico", true);
+        Opcion op42 = new Opcion("Indico", false);
+        Opcion op52 = new Opcion("Antartico", false);
+
+        //Opciones de la tercer pregunta
+        Opcion op13 = new Opcion("Falso", true);
+        Opcion op23 = new Opcion("Verdadero", false);
+        Pregunta p3 = new Pregunta();
+        p3.setTitulo("Pasaré prog. o. a objetos?");
+        List<Opcion> op3 = new ArrayList<>();
+        op3.add(op13);
+        op3.add(op23);
+        p3.setOpciones(op3);
+
+        //Ahora generamos las opciones para la primer pregunta
+        Pregunta p1 = new Pregunta();
+        p1.setTitulo("Capital de Egipto");
+        //ESto es lo interesante
+
+        List<Opcion> opcionesp1 = new ArrayList<>();
+        opcionesp1.add(op11);
+        opcionesp1.add(op21);
+        opcionesp1.add(op31);
+        opcionesp1.add(op41);
+        p1.setOpciones(opcionesp1);
+        //p1.setOpciones(Arrays.asList(op11,op21,op31,op41)); 
+        //Para la pregunta 2
+        Pregunta p2 = new Pregunta();
+        p2.setTitulo("Oceanos que rodean a Oaxaca");
+        p2.setOpciones(Arrays.asList(op12, op22, op32, op42, op52));
+
+        //Agregar las preguntas al cuetionario
+        Cuestionario c = new Cuestionario();
+        c.setPreguntas(Arrays.asList(p1, p2, p3));
+
+        return c.getPreguntas();
+    }
+
+    private void verificarRespuesta() {
+        for (JRadioButton r : radios) {
+            if (r.isSelected()) {
+                if (r.getText().equals("hola")) {
+
+                }
+            }
+
+        }
+    }
 
 }
