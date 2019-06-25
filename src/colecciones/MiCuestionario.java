@@ -18,6 +18,7 @@ public class MiCuestionario extends javax.swing.JFrame {
 
     public MiCuestionario() {
         initComponents();
+        setLocationRelativeTo(this);
         etiquetaPregunta = new JLabel();
         //Agregamos al panel la etiqueta con un texo
         etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo());
@@ -231,12 +232,15 @@ public class MiCuestionario extends javax.swing.JFrame {
     private void verificarRespuesta() {
         for (JRadioButton r : radios) {
             if (r.isSelected()) {
-                if (r.getText().equals("hola")) {
-
+                for (Opcion o : obtenerPreguntas().get(indicePregunta).getOpciones()) {
+                    if (o.getTitulo().equals(r.getText()) && o.isCorrecta()) {
+                        acierto++;
+                    }
                 }
             }
-
         }
+        jLabel1.setText("Aciertos "+acierto);
     }
-
 }
+
+    
