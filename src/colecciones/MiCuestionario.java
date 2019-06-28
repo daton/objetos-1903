@@ -109,7 +109,8 @@ public class MiCuestionario extends javax.swing.JFrame {
 
         if (indicePregunta < obtenerPreguntas().size()) {
             panelPregunta.add(etiquetaPregunta);
-            etiquetaPregunta.setText(obtenerPreguntas().get(indicePregunta).getTitulo());
+            etiquetaPregunta.setText(obtenerPreguntas()
+                    .get(indicePregunta).getTitulo());
             //Primero generamos el Arreglo
             radios = new ArrayList<>();
             grupo = new ButtonGroup();
