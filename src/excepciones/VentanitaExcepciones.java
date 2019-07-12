@@ -34,7 +34,7 @@ public class VentanitaExcepciones extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        botonValidar.setText("validar negatividad");
+        botonValidar.setText("validar numero");
         botonValidar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonValidarActionPerformed(evt);
@@ -72,6 +72,8 @@ public class VentanitaExcepciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Numero correcto!!");
         } catch (NumeroNegativoException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
+        }catch(NumberFormatException e){
+              JOptionPane.showMessageDialog(this,"Formato de numero incorrecto");
         }
         
     }//GEN-LAST:event_botonValidarActionPerformed

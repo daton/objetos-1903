@@ -15,4 +15,6 @@ public class Validaciones {
         if(valor <0) throw new NumeroNegativoException();
     }
     
+   
+    
 }
