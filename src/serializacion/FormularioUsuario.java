@@ -5,6 +5,10 @@
  */
 package serializacion;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juan_
@@ -55,6 +59,11 @@ public class FormularioUsuario extends javax.swing.JFrame {
 
         botonGenerar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         botonGenerar.setText("Generar alumno serializado");
+        botonGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGenerarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +109,25 @@ public class FormularioUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+        try {
+            // Paso 1: De los campos generar el alumno a guardar
+            String nombre=txtNombre.getText();
+            String email=txtEmail.getText();
+            String carrera=txtCarrera.getText();
+            
+            Alumno a=new Alumno(nombre, email, carrera);
+            //Paso 2: Guardar el alumno
+            Serializadora s=new Serializadora(); 
+            s.serializar(a);
+           //Si todo esta bien l ejecucion pasa a este renglon
+            JOptionPane.showMessageDialog(this, "Alumno gardado");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage()); 
+        }
+        
+    }//GEN-LAST:event_botonGenerarActionPerformed
 
     /**
      * @param args the command line arguments

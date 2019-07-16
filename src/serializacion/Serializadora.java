@@ -24,4 +24,21 @@ public class Serializadora {
         oos.writeObject(a);  
         
     }
+   /**
+    * Ese es un comentario de tipo documentacion
+    * ESte método sirve para leer o recuperar el alumno que hayamos
+    * guardado con el método de arriba
+    */ 
+    public Alumno leer()throws Exception{
+        //Paso 1 abrimos el archivo
+        File file=new File("jajaja");
+        //Paso 2. Establecemos el flujo de la informacion
+      FileInputStream fis=new FileInputStream(file);
+      //Leemos el objeto
+      ObjectInputStream ois=new ObjectInputStream(fis);
+      //Se hace la lectura
+     Alumno a=(Alumno)ois.readObject();
+     return a;
+    }
+    
 }
